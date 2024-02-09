@@ -1,0 +1,186 @@
+﻿<Window x:Class="TestVzhleduKomponent.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestVzhleduKomponent"
+        mc:Ignorable="d"
+        Title="Test Komponent (okos)" Height="600" Width="800" MinHeight="300" MinWidth="400" MaxHeight="900" MaxWidth="1600" Background="{x:Static local:Constants.DEFAULT_BACKGROUND}">
+    <Window.Resources>
+        <local:SubtractConverter x:Key="SubtractConverter"/>
+        <Style x:Key="HeightRestrictedByWindow" TargetType="Border">
+            <Setter Property="MaxHeight" >
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource SubtractConverter}">
+                        <Binding Path="ActualHeight" ElementName="Root"/>
+                        <Binding Path="ActualHeight" ElementName="Header"/>
+                        <Binding Source="{x:Static local:Constants.WINDOW_PADDING}"/>
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Name="Root">
+        <DockPanel>
+            <Label DockPanel.Dock="Top" Name="Header" Height="50" FontSize="20" FontWeight="Bold">Test vzhledu komponent</Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Border Style="{StaticResource HeightRestrictedByWindow}">
+                    <StackPanel  Grid.Column="0" >
+                        <Button Name="Button_DefaultBackground" Click="Button_DefaultBackground_Click">Button na DefaultBackground</Button>
+                        <ToggleButton Margin="0,0,0,6">
+                            <ToggleButton.Content>ToggleButton</ToggleButton.Content>
+                            <ToggleButton.Style>
+                                <Style TargetType="{x:Type ToggleButton}">
+                                    <Setter Property="Background" Value="Maroon"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsChecked" Value="true">
+                                            <Setter Property="Background" Value="LightBlue"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </ToggleButton.Style>
+                        </ToggleButton>
+                        <CheckBox IsChecked="True">Dvoustavový check button</CheckBox>
+                        <CheckBox IsThreeState="True" IsChecked="{x:Null}">CheckBox - ThreeState</CheckBox>
+                        <CheckBox IsEnabled="False">CheckBox - Disabled</CheckBox>
+                        <Border BorderBrush="Red" BorderThickness="2" Margin="2" Background="White">
+                            <StackPanel Margin="2,0,0,4">
+                                <Label FontWeight="Bold">POZADÍ TOHOTO OKNA:</Label>
+                                <Label FontWeight="ExtraBold" Margin="10,0,0,0">Volba:</Label>
+                                <RadioButton Name="RadioButton_Background_Green" Checked="RadioButton_Background_Checked">LightGreen</RadioButton>
+                                <RadioButton Name="RadioButton_Background_SkyBlue" Checked="RadioButton_Background_Checked">LightSkyBlue</RadioButton>
+                                <RadioButton Name="RadioButton_Background_GoldenrodYellow" Checked="RadioButton_Background_Checked">LightGoldenrodYellow</RadioButton>
+                                <RadioButton Name="RadioButton_Background_Gray" Checked="RadioButton_Background_Checked">LightGray</RadioButton>
+                                <RadioButton IsEnabled="False">RadioButton - Disabled</RadioButton>
+                            </StackPanel>
+                        </Border>
+                        <Slider Minimum="0" Maximum="1" Value="0.5"></Slider>
+                        <ProgressBar Height="20" IsIndeterminate="True"/>
+                        <ProgressBar Height="20"/>
+                        <TextBox Background="LightGoldenrodYellow">TextBox</TextBox>
+                        <TextBlock>Toto je příklad TextBlock</TextBlock>
+                        <Label>Toto je příklad Label</Label>
+                        <Label FontSize="14" Background="DarkGray" Padding="0">
+                            <Label.Content>Test pop up menu</Label.Content>
+                            <Label.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Povel 1"/>
+                                    <MenuItem Header="Povel 2"/>
+                                    <Separator/>
+                                    <MenuItem Header="Povel 3"/>
+                                    <MenuItem Header="Povel 4"/>
+                                    <MenuItem Header="Povel 5"/>
+                                    <MenuItem Header="Povel 6"/>
+                                    <Separator/>
+                                    <MenuItem Header="Nastavení programu"/>
+                                    <MenuItem Header="Základní okno"/>
+                                    <Separator/>
+                                    <MenuItem Name="MenuItem_Terminate" Click="MenuItem_Terminate_Click" Header="Ukončení programu"/>
+                                </ContextMenu>
+                            </Label.ContextMenu>
+                        </Label>
+                    </StackPanel>
+                </Border>
+                <Border Name="Border_Col2" Grid.Column="1" Padding="2" Background="LightSkyBlue" Style="{StaticResource HeightRestrictedByWindow}">
+                    <DockPanel Margin="4">
+                        <!-- TODO eliminate all the dumb copying of "DockPanel.Dock=Top", figure out a way to make it an effective default for this DockPanel's items -->
+                        <Button Name="Button_Salmon" Click="Button_Salmon_Click" DockPanel.Dock="Top">LightSalmon</Button>
+                        <ToggleButton Name="ToggleButton_Col2" Checked="ToggleButton_Col2_Checked" Unchecked="ToggleButton_Col2_Unchecked" DockPanel.Dock="Top" Margin="0,0,0,6" >ToggleButton</ToggleButton>
+                        <CheckBox DockPanel.Dock="Top" IsChecked="True" >Dvoustavový check button</CheckBox>
+                        <CheckBox DockPanel.Dock="Top" IsThreeState="True" IsChecked="{x:Null}">CheckBox - ThreeState</CheckBox>
+                        <CheckBox DockPanel.Dock="Top" IsEnabled="False" Margin="0,0,0,6">CheckBox - Disabled</CheckBox>
+                        <RadioButton DockPanel.Dock="Top">RadioButton 1</RadioButton>
+                        <RadioButton DockPanel.Dock="Top">RadioButton 2</RadioButton>
+                        <RadioButton DockPanel.Dock="Top" IsEnabled="False">RadioButton - Disabled</RadioButton>
+                        <Slider DockPanel.Dock="Top" Name="Slider_Monitored" Minimum="0" Maximum="100" Value="50" Margin="0,0,0,6"/>
+                        <ProgressBar DockPanel.Dock="Top" Height="15" IsIndeterminate="True" Margin="0,0,0,2"/>
+                        <ProgressBar DockPanel.Dock="Top" Height="15" Minimum="0" Maximum="100" Value="{Binding ElementName=Slider_Monitored, Path=Value, Mode=OneWay}"/>
+                        <Label DockPanel.Dock="Top" ContentStringFormat="Hodnota slideru: {0:0.##} %" Content="{Binding ElementName=Slider_Monitored, Path=Value, Mode=OneWay}"/>
+                        <TextBox DockPanel.Dock="Top" Margin="0,10,0,1" FontSize="18" Foreground="LightGreen" Background="DarkSlateGray">TextBox</TextBox>
+                        <TextBlock DockPanel.Dock="Top" Padding="2" FontSize="14" HorizontalAlignment="Stretch" TextAlignment="Center">
+                            <TextBlock.Text>Toto je příklad TextBlock</TextBlock.Text>
+                            <TextBlock.Background>
+                                <LinearGradientBrush StartPoint="0.5 0" EndPoint="0.5 1">
+                                    <GradientStop Offset="0" Color="Black"/>
+                                    <GradientStop Offset="0.7" Color="LightGray"/>
+                                </LinearGradientBrush>
+                            </TextBlock.Background>
+                        </TextBlock>
+                        <Label DockPanel.Dock="Top" Margin="4,8,4,4" FontSize="14" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+                            <Label.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleY="10"/>
+                                    <RotateTransform Angle="-4"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Label.RenderTransform>
+                            <Label.Content>Toto je příklad Label</Label.Content>
+                        </Label>
+                        <ScrollViewer DockPanel.Dock="Top" Background="LightBlue">
+                            <TextBlock TextWrapping="Wrap" Text="{x:Static local:Constants.LOREM_IPSUM}"/>
+                        </ScrollViewer>
+                    </DockPanel>
+                </Border>
+                <Border Grid.Column="2" Style="{StaticResource HeightRestrictedByWindow}">
+                    <DockPanel>
+                        <ComboBox DockPanel.Dock="Top" ItemsSource="{x:Static local:Constants.PEOPLE}" Margin="0,0,0,8">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding FirstName}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Label DockPanel.Dock="Bottom" FontWeight="SemiBold" Content="{Binding ElementName=ListBox_Names, Path=SelectedItem}"/>
+                        <Label DockPanel.Dock="Bottom" FontSize="8" Margin="0">Vybraná položka</Label>
+                        <ListBox Background="LightGoldenrodYellow" Name="ListBox_Names" ItemsSource="{x:Static local:Constants.PEOPLE}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding FirstName}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </Border>
+                <TabControl Grid.Column="3" VerticalAlignment="Stretch" Margin="4,0,0,0">
+                        <TabItem Header="TreeView">
+                            <Expander IsExpanded="True" Margin="8" Header="Expander">
+                                <TreeView>
+                                    <TreeViewItem Header="TreeViewItem #1"/>
+                                    <TreeViewItem Header="TreeViewItem #2" IsExpanded="True">
+                                        <TreeViewItem Header="TreeViewItem #3"/>
+                                        <TreeViewItem Header="TreeViewItem #4"/>
+                                    </TreeViewItem>
+                                    <TreeViewItem Header="TreeViewItem #5"/>
+                                    <TreeViewItem Header="TreeViewItem #6">
+                                        <TreeViewItem Header="TreeViewItem #7"/>
+                                    </TreeViewItem>
+                                </TreeView>
+                            </Expander>
+                        </TabItem>
+                        <TabItem Header="ListView" Name="Tab_List">
+                            <ListBox Margin="8" Background="Gray" Foreground="White" ItemsSource="{x:Static local:Constants.PEOPLE}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </TabItem>
+                    </TabControl>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -88,7 +88,6 @@ namespace TestVzhleduKomponent
         public const string LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam eget nisl. Fusce tellus odio, dapibus id fermentum quis, suscipit id erat. Donec iaculis gravida nulla. Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Etiam commodo dui eget wisi. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Aliquam ante. Nunc dapibus tortor vel mi dapibus sollicitudin. Aliquam erat volutpat. Mauris tincidunt sem sed arcu. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam. Mauris elementum mauris vitae tortor. Nulla quis diam.";
 
         public const double WINDOW_PADDING = 16;
-        //TODO the way this is used is not exact - WINDOW_PADDING=4 doesn't look like it does anything, there must be some margins around the header label or the columns
 
         public record struct Person(string FirstName, string Surname)
         {
